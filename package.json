@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/somebody1234/shtriped.git"
+    "url": "git+https://github.com/HelkaHomba/shtriped.git"
   },
   "author": "HelkaHomba",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/somebody1234/shtriped/issues"
+    "url": "https://github.com/HelkaHomba/shtriped/issues"
   },
-  "homepage": "https://github.com/somebody1234/shtriped#readme"
+  "homepage": "https://github.com/HelkaHomba/shtriped#readme"
 }
