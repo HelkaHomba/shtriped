@@ -1,4 +1,4 @@
-[[ Library of useful Shtriped functions and constants ]]
+[[ Shtriped Core Library ]]
 
 [ Built-in Aliases ]
 
@@ -259,7 +259,12 @@ _ \ prints a single space character, returns 0
  s 2
  = 0
 
-[ Utility Functions ]
+[ General Purpose Functions ]
+
+\ No-Op
+` \ does nothing, returns 0
+ e x
+ h x
 
 \ Evaluate
 = x \ returns value of x, whether x is an integer or function
@@ -270,11 +275,6 @@ _ \ prints a single space character, returns 0
  h z
  d x
  h y
-
-\ Function Conditional
-$ x f g \ returns f() if x is positive, else returns g()
- ? x f g x
- x
 
 \ Loop
 ' f x \ calls f() x times, returns 0
@@ -292,22 +292,12 @@ $ x f g \ returns f() if x is positive, else returns g()
  h x
 
 \ While Loop
-@ f g \ repeatedly calls f() as long as g() is positive
- TODO
-
-\ Test Aide
-Test f x \ prints "n -> f(n)" for n = 0 to x, returns x
- T n
-  p n
-  _
-  s 19
-  s 36
-  _
-  f n n
-  . n
- i x
- " T x
+@ f g \ repeatedly calls g() as long as f() is positive, returns 0
+ e x
+ f x
  d x
+ g
+ @ f g
 
 [ Logic Functions ]
 
@@ -316,7 +306,7 @@ Test f x \ prints "n -> f(n)" for n = 0 to x, returns x
  ? x 1 0
 
 \ Logical Not
-! x \ returns 0 if x is positive, else returns 1
+! x \ returns 1 if x is zero, else returns 0
  ? x 0 1
 
 \ Logical And
@@ -330,76 +320,198 @@ Test f x \ prints "n -> f(n)" for n = 0 to x, returns x
 [ Comparison Functions ]
 
 \ Equals
-~ x y \ returns 1 if x equals y, else returns 0
- TODO
+~ x y \ returns 1 if x == y, else returns 0
+ e z
+ # x y z
+ ! z
 
 \ Not Equals
-` x y \ returns 0 if x equals y, else returns 1
- ~ x y x
- ! x
+# x y \ returns 1 if x != y, else returns 0
+ e z
+ | x y z
+ d z
+ = 1
+ d x
+ = 1
+ d y
+ # x y
 
 \ Less Than
-< x y
- TODO
-
-\ Less Than or Equal To
-{ x y
- TODO
+< x y \ returns 1 if x < y, else returns 0
+ d y
+ = 1
+ d x
+ < x y
 
 \ Greater Than
-> x y
- TODO
+> x y \ returns 1 if x > y, else returns 0
+ < y x
+
+\ Less Than or Equal To
+{ x y \ returns 1 if x <= y, else returns 0
+ = 1
+ d x
+ = 0
+ d y
+ { x y
 
 \ Greater Than or Equal To
-} x y
- TODO
+} x y \ returns 1 if x >= y, else return 0
+ { y x
 
 [ Math Functions ]
 
 \ Minimum
-( x y
- TODO
+( x y \ returns the minimum of x and y
+ e z
+ < x y z
+ ? z x y
 
 \ Maximum
-) x y
- TODO
+) x y \ returns the maximum of x and y
+ e z
+ < x y z
+ ? z y x
 
 \ Addition
 + x y \ returns x + y
- f
+ +
   i x
- ' f y
+ ' + y
  h x
 
 \ Subtraction
-- x y
- TODO
+- x y \ returns abs(x - y)
+ e z
+ f
+  = x z
+  = y x
+  = z y
+ < x y z
+ ? z f ` z
+ z
+ -
+  d x
+ ' - y
+ h x
 
 \ Multiplication
 * x y \ returns x * y
  e z
- f
+ *
   + x z z
- ' f y
+ ' * y
  h z
 
 \ Integer Division
-/ x y
- TODO
-
-\ Modulo
-% x y
- TODO
-
-\ Exponentiation
-^ x y \ returns x^y, 0^0 returns 1
- e z
- i z
+/ x y \ returns floor(x / y), returns 0 if y is 0
+ d y
+ i y
+ e z 
  f
-  * x z z
- ' f y
+  } x y
+ /
+  i z
+  - x y x
+ @ f /
  h z
 
-\ Logarithm
-# x y
- TODO
+\ Modulo
+% x y \ returns x modulo y, returns 0 if y is 0
+ d y
+ i y
+ f
+  } x y
+ /
+  - x y x
+ @ f /
+ h x
+
+\ Exponentiation
+^ x y \ returns x^y, returns 1 if x and y are both 0
+ e z
+ i z
+ ^
+  * x z z
+ ' ^ y
+ h z
+
+\ Length in Base
+$ x y \ returns the digital length of x when expressed in base y, returns 0 if y is 0
+ d y
+ = x
+ d y
+ i y
+ i y
+ e z
+ i z
+ e b
+ = y b
+ f
+  } x y
+ $
+  i z
+  * b y y
+ @ f $
+ h z
+
+[ Testing Aides ]
+
+\ Print Arrow
+-> \ prints " -> ", returns 0
+ _
+ s 19
+ s 36
+ _
+ = 0
+
+\ One Argument
+T1 f x \ prints "u -> f(u)" for u = 0 to x, returns x
+ i x
+ U u
+  p u
+  ->
+  f u u
+  . u
+ i x
+ " U x
+ d x
+
+\ Two Argument
+T2 f x \ prints "u v -> f(u, v)" for u,v = 0 to x, returns x
+ i x
+ U u
+  V v
+   p u
+   _
+   p v
+   ->
+   e x
+   f u v x
+   . x
+  " V x
+  ;
+ " U x
+ d x
+
+\ Three Argument
+T3 f x \ prints "u v w -> f(u, v, w)" for u,v,w = 0 to x, returns x
+ i x
+ U u
+  V v
+   W w
+    p u
+    _
+    p v
+    _
+    p w
+    ->
+    e x
+    f u v w x
+    . x
+   " W x
+   ;
+  " V x
+  ;
+ " U x
+ d x

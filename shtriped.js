@@ -30,7 +30,7 @@ var MAIN_FUNC = COMPONENTS.SEPARATOR
 function ShtripedError(message, stmt) {
 	this.message = message
 	if (!undef(stmt)) {
-		this.message += ' [' + [stmt.name].concat(stmt.args).join(COMPONENTS.SEPERATOR) + ']'
+		this.message += ' [' + [stmt.name].concat(stmt.args).join(COMPONENTS.SEPARATOR) + ']'
 	}
 }
 ShtripedError.prototype = Object.create(Error.prototype)
