@@ -1,24 +1,18 @@
 {
-  "name": "shtriped",
-  "version": "0.0.1",
-  "description": "A programming language for the purist.",
-  "main": "shtriped.js",
-  "dependencies": {
-    "big-integer": "^1.6.12",
-    "readline-sync": "^1.3.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/HelkaHomba/shtriped.git"
-  },
-  "author": "HelkaHomba",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/HelkaHomba/shtriped/issues"
-  },
-  "homepage": "https://github.com/HelkaHomba/shtriped#readme"
+	"name": "shtriped",
+	"version": "0.2.0",
+	"author": "Helka Homba",
+	"license": "MIT",
+	"description": "A programming language for the purist.",
+	"main": "shtriped.js",
+	"homepage": "https://github.com/HelkaHomba/shtriped#readme",
+	"bugs": "https://github.com/HelkaHomba/shtriped/issues",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/HelkaHomba/shtriped.git"
+	},
+	"dependencies": {
+		"big-integer": "^1.6.12",
+		"readline-sync": "^1.3.1"
+	}
 }
